@@ -18,8 +18,8 @@ export class Plx {
   static VALID_ENCODINGS = VALID_ENCODINGS;
   static ENCRYPTION_ALGORITHM = ENCRYPTION_ALGORITHM;
   static encode = encode;
-  static decode = decode;
   static encodeFromString = encodeFromString;
+  static decode = decode;
   static decodeFromString = decodeFromString;
   static decodeToString = decodeToString;
   static helper = {

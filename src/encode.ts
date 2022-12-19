@@ -3,9 +3,17 @@
  * Created: 18/12/2022
  */
 import { ENCRYPTION_ALGORITHM, IV_LENGTH, SECRET_LENGTH } from "./constants";
-import { EncoderOptions, StringEncoderOptions } from "./interfaces";
+import { EncoderOptions } from "./interfaces";
 import { stringToByteArray } from "./str-to-byte-array.helper";
 
+/**
+ * Encodes a data stream or byte array for transmission or storage. This is okay for general use,
+ * but it's intent is to encode streamed audio data. As such its functionality is limited.
+ * 
+ * Pass it a Uint8Array of encoded audio, or the ReadableStream.
+ * 
+ * Provide a `secretKey` and optionally an `iv`. These should be configured on your application and infrastructure level.
+ */
 export async function encode(data: Uint8Array | ReadableStream, options: EncoderOptions): Promise<Uint8Array | ReadableStream> {
   const secretKey = typeof options.secretKey === 'string'
     ? stringToByteArray(options.secretKey, { type: 'Uint8Array', length: SECRET_LENGTH }) as Uint8Array
@@ -57,18 +65,12 @@ export async function encode(data: Uint8Array | ReadableStream, options: Encoder
   throw new TypeError(`Invalid data type: ${typeof data}`);
 }
 
-export async function encodeFromString(data: string, options: StringEncoderOptions): Promise<Uint8Array | ReadableStream> {
-  let decodedData: Uint8Array;
-
-  if (options.encoding === 'utf8') {
-    decodedData = new TextEncoder().encode(data);
-  } else if (options.encoding === 'hex') {
-    decodedData = new Uint8Array(data.match(/[\da-f]{2}/gi)!.map(h => parseInt(h, 16)));
-  } else if (options.encoding === 'base64') {
-    decodedData = Uint8Array.from(atob(data), c => c.charCodeAt(0));
-  } else {
-    throw new Error(`Invalid encoding: ${options.encoding}`);
-  }
-
-  return encode(decodedData, options);
+/**
+ * Encode from a string input rather than a byte array or stream.
+ */
+export async function encodeFromString(data: string, options: EncoderOptions): Promise<Uint8Array | ReadableStream> {
+  return encode(
+    stringToByteArray(data, { type: 'Uint8Array' }) as Uint8Array,
+    options
+  );
 }
