@@ -4,13 +4,15 @@
  */
 
 import { ENCRYPTION_ALGORITHM, VALID_ENCODINGS } from './constants';
-import { decode, decodeFromString } from './decode';
+import { decode, decodeFromString, decodeToString } from './decode';
 import { encode, encodeFromString } from './encode';
+import { stringToByteArray } from './str-to-byte-array.helper';
 
 export * from './constants';
 export * from './interfaces'
 export * from './encode';
 export * from './decode';
+export * from './str-to-byte-array.helper';
 
 export class Plx {
   static VALID_ENCODINGS = VALID_ENCODINGS;
@@ -19,5 +21,9 @@ export class Plx {
   static decode = decode;
   static encodeFromString = encodeFromString;
   static decodeFromString = decodeFromString;
+  static decodeToString = decodeToString;
+  static helper = {
+    stringToByteArray,
+  } as const;
 }
 export default Plx;
