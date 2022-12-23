@@ -4,7 +4,7 @@
  */
 
 export interface StringToByteArrayOptions {
-  type: 'Array' | 'Uint8Array' | 'ArrayBuffer';
+  type?: 'Array' | 'Uint8Array' | 'ArrayBuffer';
   length?: number;
   padChar?: number | string;
 }
@@ -23,14 +23,8 @@ export const stringToByteArray = (str: string, options: StringToByteArrayOptions
 
   const output = (arr: ByteArray) => arr.slice(0, length);
   
-  let buf: ArrayBuffer;
   switch(options.type) {
     case 'ArrayBuffer':
-      buf = new ArrayBuffer(converted.length);
-      for (let i = 0; i < length; i++) {
-        buf[i] = converted[i] ?? padChar;
-      }
-      return output(buf);
     case 'Uint8Array':
       return output(new Uint8Array(data));
     case 'Array':
