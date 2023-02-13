@@ -13,7 +13,11 @@
     "brc",
     "burns"
   ],
-  "author": "Rob Fairley <rob@burns.fm>",
+  "author": {
+    "name": "Rob Fairley",
+    "email": "rob@burns.fm",
+    "url": "https://burns.fm"
+  },
   "devDependencies": {
     "@types/jest": "^29.2.4",
     "husky": "^8.0.2",
@@ -267,7 +271,7 @@
     "type": "git",
     "url": "git+https://github.com/burns-fm/l-plx.git"
   },
-  "license": "MIT",
+  "license": "MIT (Modified)",
   "bugs": {
     "url": "https://github.com/burns-fm/l-plx/issues"
   },
