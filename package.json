@@ -1,6 +1,6 @@
 {
   "name": "@burns-fm/l-plx",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Player data encoding methods and values.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
